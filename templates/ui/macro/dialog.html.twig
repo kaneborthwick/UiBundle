@@ -1,0 +1,26 @@
+{% macro createDialog(id, description, type = 'link') %}
+    {% embed '@ui/modal/modal.html.twig' with { id : id, title: "Confirm" } %}
+        
+        {% block modal_body_content %}
+            <p>{{description}}</p>
+        {% endblock %}
+        
+        {% block modal_footer_content %}
+            <button type="button" class="btn btn-dismiss btn-secondary" data-dismiss="modal">Cancel</button>
+            <a href="#" type="button" class="btn btn-ok btn-primary">Confirm</a>
+        {% endblock %}
+         
+    {% endembed %}
+
+    {% if type == 'link' %}
+   
+        <script type="text/javascript">
+            $(function() {
+                $('#{{id}}').on('show.bs.modal', function(e) {
+                    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                });
+            });
+        </script>
+
+    {% endif %}
+{% endmacro %}
