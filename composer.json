@@ -1,0 +1,27 @@
+{
+    "name": "towersystems/ui-bundle",
+    "type": "library",
+    "description": "Zend Expressive; Create interfaces for your application",
+    "authors": [
+        {
+            "name": "kane",
+            "email": "kane.borthwick@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.1",
+        "towersystems/resource-bundle": "^1.0.0",
+        "twig/extensions": "^1.5",
+        "zendframework/zend-expressive-twigrenderer": "^2.0",
+        "psr/container": "^1.0",
+        "knplabs/gaufrette": "^0.6.0",
+        "knplabs/knp-menu": "^2.3",
+        "knplabs/knp-snappy": "^1.0",
+        "zendframework/zend-expressive-twigrenderer": "^2.0"
+    },
+   "autoload": {
+        "psr-4": { "UiBundle\\": "src\\" }
+    }
+}
