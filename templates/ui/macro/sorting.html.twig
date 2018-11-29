@@ -1,0 +1,21 @@
+{% macro tableHeader(grid, field, attributes) %}
+    
+    {% from _self import link %}
+    {% set order = grid.getSortingOrder(field.name) %}
+    
+    {% if grid.isSortedBy(field.name) %}
+        <th class="sortable sorted {{ order == 'desc' ? 'descending' : 'ascending' }} tower-table-column-{{ field.name }}">
+            <a href="{{ link(field.name, attributes, (order == 'desc' ? 'asc' : 'desc'), grid.parameters.all) }}">{{ field.label }}</a>
+        </th>
+    {% else %}
+         <th class="sortable tower-table-column-{{ field.name }}">
+            <a href="{{ link(field.name, attributes, order, grid.parameters.all) }}">{{ field.label }}<i class="sort icon"></i></a>
+        </th>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro link(fieldName, attributes, order, parameters) %}
+    {% set sorting = {'sorting': {(fieldName): (order)}} %}
+    {{ url(null, { }, parameters|merge(sorting)|merge({'page': 1}), null, { reuse_result_params: true }) }}
+{% endmacro %}

@@ -1,0 +1,52 @@
+
+{% import '@ui/macro/pagination.html.twig' as pagination %}
+{% import '@ui/macro/table.html.twig' as table %}
+
+{% set definition = grid.definition %}
+{% set data = grid.data %}
+{% set urlPath = url(null, [], grid.parameters.all ) %}
+
+{% if definition.enabledFilters|length > 0 %}
+<div class="">
+    <div class="">
+         <div class="title active">
+            <i class="dropdown icon"></i>
+            Filters
+        </div>
+        <div class="">
+             <form method="get" action="{{ urlPath }}" class="ui loadable form">
+                <div class="row">
+                    {% for filter in definition.enabledFilters if filter.enabled %}
+
+                    {% endfor %}
+                </div>
+             </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="ui segment">
+    
+    {% if data|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    {{ table.headers(grid, definition) }}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    {{ table.row(grid, definition, row) }}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+
+    {% endif %}
+    
+    {{ pagination.simple(data) }}
+
+</div>
+
+

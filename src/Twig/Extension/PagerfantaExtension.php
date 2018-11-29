@@ -3,8 +3,25 @@
 namespace UiBundle\Twig\Extension;
 
 use Pagerfanta\PagerfantaInterface;
+use Zend\Expressive\Helper\UrlHelper;
 
 class PagerfantaExtension extends \Twig_Extension {
+
+	/**
+	 * @var UrlHelper
+	 */
+	private $urlHelper;
+
+	/**
+	 * [__construct description]
+	 *
+	 * @param UrlHelper $urlHelper [description]
+	 */
+	public function __construct(
+		UrlHelper $urlHelper
+	) {
+		$this->urlHelper = $urlHelper;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -38,7 +55,6 @@ class PagerfantaExtension extends \Twig_Extension {
 	private function createRouteGenerator($options = array()) {
 
 		$options = array_replace(array(
-			'path' => null,
 			'routeName' => null,
 			'routeParams' => array(),
 			'omitFirstPage' => false,
@@ -48,8 +64,9 @@ class PagerfantaExtension extends \Twig_Extension {
 		// temp .. dont have time to implement a complex system
 		// which uses the router to get details
 		return function ($page) use ($options) {
-			return sprintf("%s?page=%s", $options['path'], $page);
+			return sprintf("%s?page=%s", $this->urlHelper->generate(), $page);
 		};
+
 	}
 
 }

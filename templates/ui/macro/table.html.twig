@@ -1,0 +1,18 @@
+{% macro headers(grid, definition, requestAttributes) %}
+    {% import '@ui/macro/sorting.html.twig' as sorting %}
+    {% for field in definition.fields %}
+        {% if field.isSortable %}
+            {{ sorting.tableHeader(grid, field, requestAttributes) }}
+        {% else %}
+            <th class="col column-{{ field.name }}">{{ field.label }}</th>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro row(grid, definition, row) %}
+     <tr class="">
+        {% for field in definition.enabledFields %}
+            <td class=''>{{ tower_grid_render_field(grid, field, row) }}</td>
+        {% endfor %}
+     </tr>
+{% endmacro %}

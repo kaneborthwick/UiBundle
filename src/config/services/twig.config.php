@@ -1,11 +1,14 @@
 <?php
 
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 
 return [
 
 	ConfigAbstractFactory::class => [
-		UiBundle\Twig\Extension\PagerfantaExtension::class => [],
+		UiBundle\Twig\Extension\PagerfantaExtension::class => [
+			UrlHelper::class,
+		],
 	],
 	'dependencies' => [
 		'aliases' => [],
