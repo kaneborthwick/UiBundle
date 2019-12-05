@@ -56,15 +56,17 @@ class PagerfantaExtension extends \Twig_Extension {
 
 		$options = array_replace(array(
 			'routeName' => null,
-			'routeParams' => array(),
+			'routeParams' => array("??" => "??"),
 			'omitFirstPage' => false,
 			'pageParameter' => '[page]',
 		), $options);
 
 		// temp .. dont have time to implement a complex system
 		// which uses the router to get details
-		return function ($page) use ($options) {
-			return sprintf("%s?page=%s", $this->urlHelper->generate(), $page);
+		return function ($page, $params = []) use ($options) {
+			$queries = array();
+			parse_str($_SERVER['QUERY_STRING'], $queries);
+			return $this->urlHelper->generate($this->urlHelper->getRouteResult()->getMatchedRouteName(), [], array_merge($queries, ['page' => $page]), null, ['reuse_result_params' => true]);
 		};
 
 	}

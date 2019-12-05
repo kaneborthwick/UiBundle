@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
    
-    <title>{% block title %}{{ pageTitle | default("Subscriptions - ")}} Tower Systems{% endblock %}</title>
+    <title>{% block title %}{{ pageTitle | default("Billing - ")}} Tower Systems{% endblock %}</title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    
     {% block metatags %}
     {% endblock %}
 
@@ -17,6 +18,9 @@
     {% endblock %}
 </head>
 <body>
+{% block topbar %}
+{% endblock %} 
+
 {% block content %}
 {% endblock %}
 

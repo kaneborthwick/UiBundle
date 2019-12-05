@@ -9,7 +9,7 @@
         </th>
     {% else %}
          <th class="sortable tower-table-column-{{ field.name }}">
-            <a href="{{ link(field.name, attributes, order, grid.parameters.all) }}">{{ field.label }}<i class="sort icon"></i></a>
+            <a href="{{ link(field.name, attributes, (order == 'desc' ? 'asc' : 'desc'), grid.parameters.all) }}">{{ field.label }}<i class="sort icon"></i></a>
         </th>
     {% endif %}
 

@@ -1,10 +1,13 @@
 
 {% import '@ui/macro/pagination.html.twig' as pagination %}
 {% import '@ui/macro/table.html.twig' as table %}
+{% import '@ui/macro/buttons.html.twig' as buttons %}
 
 {% set definition = grid.definition %}
 {% set data = grid.data %}
 {% set urlPath = url(null, [], grid.parameters.all ) %}
+
+{% set criteria = null %}
 
 {% if definition.enabledFilters|length > 0 %}
 <div class="">
@@ -13,12 +16,15 @@
             <i class="dropdown icon"></i>
             Filters
         </div>
-        <div class="">
+        <div class="content {% if criteria is not null %}active{% endif %}">
              <form method="get" action="{{ urlPath }}" class="ui loadable form">
-                <div class="row">
+                <div class="">
                     {% for filter in definition.enabledFilters if filter.enabled %}
-
+                        <div class="tower-filters__field">
+                            {{ tower_grid_render_filter(grid, filter) }}
+                        </div>
                     {% endfor %}
+                    {{ buttons.filter() }}
                 </div>
              </form>
         </div>

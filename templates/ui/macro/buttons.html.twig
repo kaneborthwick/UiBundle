@@ -1,0 +1,5 @@
+{% macro filter(message) %}
+    <button class="ui blue labeled icon button" type="submit">
+        <i class="icon search"></i> {{ (message is empty ? 'Search' : message) }}
+    </button>
+{% endmacro %}
