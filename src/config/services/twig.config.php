@@ -9,6 +9,7 @@ return [
 		UiBundle\Twig\Extension\PagerfantaExtension::class => [
 			UrlHelper::class,
 		],
+		UiBundle\Twig\Extension\BlockExtension::class => [],
 	],
 	'dependencies' => [
 		'aliases' => [],

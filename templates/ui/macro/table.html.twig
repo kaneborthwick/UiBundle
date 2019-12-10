@@ -1,12 +1,15 @@
 {% macro headers(grid, definition, requestAttributes) %}
     {% import '@ui/macro/sorting.html.twig' as sorting %}
-    {% for field in definition.fields %}
+    {% for field in definition.fields|sort((a, b) => a.position <=> b.position) %}
         {% if field.isSortable %}
             {{ sorting.tableHeader(grid, field, requestAttributes) }}
         {% else %}
-            <th class="col column-{{ field.name }}">{{ field.label }}</th>
+            <th class="column-{{ field.name }}">{{ field.label }}</th>
         {% endif %}
     {% endfor %}
+     {% if definition.actionGroups.item is defined and definition.getEnabledActions('item')|length > 0 %}
+        <th class="tower-table-column-actions"></th>
+    {% endif %}
 {% endmacro %}
 
 {% macro row(grid, definition, row) %}
@@ -14,5 +17,23 @@
         {% for field in definition.enabledFields %}
             <td class=''>{{ tower_grid_render_field(grid, field, row) }}</td>
         {% endfor %}
+
+        {% if definition.getEnabledActions('item')|length > 0 %}
+        <td>
+            <div class="ui buttons">
+                {% for action in definition.getEnabledActions('item') %}
+                    {{ tower_grid_render_action(grid, action, row) }}
+                {% endfor %}
+            </div>
+            {% if definition.actionGroups.subitem is defined and definition.getEnabledActions('subitem')|length > 0 %}
+            <div class="ui divider"></div>
+            <div class="ui buttons">
+                {% for action in definition.getEnabledActions('subitem') %}
+                    {{ tower_grid_render_action(grid, action, row) }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </td>
+    {% endif %}
      </tr>
 {% endmacro %}

@@ -3,3 +3,57 @@
         <i class="icon search"></i> {{ (message is empty ? 'Search' : message) }}
     </button>
 {% endmacro %}
+
+{% macro show(url, message, id, class, labeled = true) %}
+    {% import _self as buttons %}
+
+    {% if message is empty and labeled %}
+        {% set message = 'view' %}
+    {% endif %}
+
+    {{ buttons.default(url, message, id, 'search') }}
+{% endmacro %}
+
+
+{% macro default(url, message, id, icon, class) %}
+    <a class="ui {% if message is not empty %}labeled {% endif %}{% if icon is not empty %}icon {% endif %}button {% if class is not empty %} {{ class }} {% endif %}" {% if id is not null %} id="{{ id }}"{% endif %} href="{{ url }}">
+        {% if icon is not empty %}
+            <i class="icon {{ icon }}"></i>
+        {% endif %}
+        {% if message is not empty %}
+            {{ message }}
+        {% endif %}
+    </a>
+{% endmacro %}
+
+
+
+{% macro edit(url, message, id, labeled = true) %}
+    {% import _self as buttons %}
+
+    {% if message is empty and labeled %}
+        {% set message = 'Edit' %}
+    {% endif %}
+
+    {{ buttons.default(url, message, id, 'pencil') }}
+{% endmacro %}
+
+{% macro create(url, message, id, labeled = true) %}
+    {% import _self as buttons %}
+
+    {% if message is empty and labeled %}
+        {% set message = 'Create' %}
+    {% endif %}
+
+    {{ buttons.default(url, message, id, 'plus', 'primary') }}
+{% endmacro %}
+
+
+{% macro delete(url, message, labeled = true, resourceId = null) %}
+    <form action="{{ url }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button class="ui red {% if labeled %}labeled {% endif %}icon button" type="submit" data-requires-confirmation>
+            <i class="icon trash"></i> {{ ((message is empty and labeled) ? 'delete' : message) }}
+        </button>
+    </form>
+{% endmacro %}

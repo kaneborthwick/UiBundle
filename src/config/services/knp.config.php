@@ -11,7 +11,7 @@ return [
 		],
 		'invokables' => [],
 		'factories' => [
-			Knp\Menu\Twig\MenuExtension::class => \UiBundle\Twig\Extension\Factory\MenuExtensionFactory::class,
+			Knp\Menu\Twig\MenuExtension::class => UiBundle\Twig\Extension\Factory\MenuExtensionFactory::class,
 			Knp\Menu\Renderer\TwigRenderer::class => UiBundle\Twig\Renderer\Factory\DefaultRendererFactory::class,
 		],
 	],

@@ -1,0 +1,42 @@
+{% set title = title|default(null) %}
+{% set icon = icon|default(null) %} 
+{% set action = action|default(null) %}   
+
+{% set class = class|default(null) %}   
+
+<div class="my-3 bg-white rounded shadow-sm card {{ class }}">
+    {% block card_header %}
+        {% if title %}
+            <div class="d-flex mb-3 border-bottom justify-content-between justify-content-center pt-3 pb-3 card__header">
+                <h5 class="border-gray card__header-text">
+                    <div class="d-flex">
+                        {% if icon %}
+                            <span class="card__header-icon">
+                               <i data-feather="{{ icon }}"></i> 
+                            </span>
+                        {% endif %}
+                        {{ title }}
+                    </div>
+                </h5>
+                {% if action %}
+                    <div class="">
+                        <a class="btn btn-light" href="{{action.action}}">
+                            <span class="pr-1">
+                                <i data-feather="{{ action.icon }}"></i> 
+                            </span>
+                            <span>{{action.label}}</span>
+                        </a>  
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    <div class="card__body">
+        {% block card_body %}
+        {% endblock %}
+    </div>
+    <div class="card__footer">
+        {% block card_footer %}
+        {% endblock %}
+    </div>
+</div>
